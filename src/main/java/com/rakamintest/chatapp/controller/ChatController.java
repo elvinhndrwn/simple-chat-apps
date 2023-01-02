@@ -1,5 +1,6 @@
 package com.rakamintest.chatapp.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.rakamintest.chatapp.dto.MessageRequest;
 import com.rakamintest.chatapp.service.ChatService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ public class ChatController {
     private ChatService chatService;
 
     @GetMapping("/send")
-    public String send(){
+    public String send() throws JsonProcessingException {
         return chatService.send(MessageRequest.builder()
                         .message("hello")
                 .build());

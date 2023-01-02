@@ -15,7 +15,7 @@ public class ActiveMQConfig {
     public ActiveMQConnectionFactory listenerActiveMQConnectionFactory() {
         var activeMQConnectionFactory = new ActiveMQConnectionFactory();
         activeMQConnectionFactory.setTrustAllPackages(true);
-        activeMQConnectionFactory.setBrokerURL("http://127.0.0.1:616161");
+        activeMQConnectionFactory.setBrokerURL("tcp://127.0.0.1:61616");
 
         return activeMQConnectionFactory;
     }
@@ -32,7 +32,7 @@ public class ActiveMQConfig {
     @Bean
     public ActiveMQConnectionFactory senderActiveMQConnectionFactory() {
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
-        activeMQConnectionFactory.setBrokerURL("http://127.0.0.1:616161");
+        activeMQConnectionFactory.setBrokerURL("tcp://127.0.0.1:61616");
         activeMQConnectionFactory.setSendTimeout(1000);
         activeMQConnectionFactory.setMaxThreadPoolSize(5);
         activeMQConnectionFactory.setTrustAllPackages(true);
