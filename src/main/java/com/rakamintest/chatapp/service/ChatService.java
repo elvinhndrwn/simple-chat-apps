@@ -46,6 +46,7 @@ public class ChatService {
             incomingMessageResponse.setRoomId(msg.getRoomId());
             incomingMessageResponse.setSenderName(sender.getUserFullName());
             incomingMessageResponse.setMessage(currentMsg.getMessage());
+            incomingMessageResponse.setPhoneNumber(sender.getPhoneNumber());
 
             response.add(incomingMessageResponse);
         });

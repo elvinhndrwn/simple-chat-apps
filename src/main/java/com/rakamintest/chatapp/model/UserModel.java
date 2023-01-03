@@ -19,4 +19,7 @@ public class UserModel {
 
     @Column(name = "user_full_name")
     private String userFullName;
+
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
 }

@@ -11,6 +11,7 @@ public interface GetMessageHistoryListResponse {
     int getParticipantId();
     int getUserOne();
     int getUserTwo();
+    String getPhoneNumber();
 
 
 }
