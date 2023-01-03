@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 public class ChatController {
@@ -20,7 +22,7 @@ public class ChatController {
     }
 
     @GetMapping("/show-incoming-message/{id}")
-    public IncomingMessageResponse showIncomingMessageList(@PathVariable(required = true) int id){
+    public List<IncomingMessageResponse> showIncomingMessageList(@PathVariable(required = true) int id){
         return chatService.showIncomingMessageList(id);
     }
 }

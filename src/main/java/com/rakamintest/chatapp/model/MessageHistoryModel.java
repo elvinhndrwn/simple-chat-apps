@@ -20,11 +20,11 @@ public class MessageHistoryModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "room_id")
+    private int roomId;
+
     @Column(name = "sender_user_id")
     private int senderUserId;
-
-    @Column(name = "receiver_user_id")
-    private int receiverUserId;
 
     @Column(name = "time")
     private Timestamp time;

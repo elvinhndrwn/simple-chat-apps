@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class IncomingMessageResponse {
     private String senderName;
     private String message;
+    private int roomId;
 }
