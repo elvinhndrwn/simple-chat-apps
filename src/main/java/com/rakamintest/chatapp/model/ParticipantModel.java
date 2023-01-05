@@ -18,9 +18,9 @@ public class ParticipantModel {
     private int id;
 
     @Column(name = "user_one")
-    private String userOne;
+    private int userOne;
 
     @Column(name = "user_two")
-    private String userTwo;
+    private int userTwo;
 
 }

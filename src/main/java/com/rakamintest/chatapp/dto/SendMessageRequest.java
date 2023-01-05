@@ -5,15 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageRequest {
-    private Integer senderUserId;
-    private String phoneNumber;
-    private String message;
-    private Integer roomId;
+public class SendMessageRequest {
+
+    private Map<String, Object> chatData;
 }

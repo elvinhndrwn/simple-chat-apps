@@ -1,5 +1,6 @@
 package com.rakamintest.chatapp.model;
 
+import com.rakamintest.chatapp.constant.MessageStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,4 +32,8 @@ public class MessageHistoryModel {
 
     @Column(name = "message")
     private String message;
+
+    @Column(name = "message_status")
+    @Enumerated(EnumType.ORDINAL)
+    private MessageStatus messageStatus;
 }
