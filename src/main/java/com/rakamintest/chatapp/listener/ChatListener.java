@@ -56,14 +56,13 @@ public class ChatListener {
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         ParticipantModel participant;
         RoomModel room = null;
-        if(!Objects.isNull(receiverMsg)){
-
+        if(receiverMsg.isPresent()){
             if(Objects.isNull(chatData.get("roomId"))){
                 // if this is a new message
                 // create participant
                 participant = participantRepository.save(ParticipantModel.builder()
                         .userOne((Integer) chatData.get("senderUserId"))
-                        .userTwo(receiverMsg.getId())
+                        .userTwo(receiverMsg.get().getId())
                         .build());
 
                 // create a room
@@ -103,10 +102,8 @@ public class ChatListener {
                         .messageStatus(MessageStatus.SENT)
                         .build());
             }
-
-
-
         }
+
         log.info("success store message history");
     }
 }
