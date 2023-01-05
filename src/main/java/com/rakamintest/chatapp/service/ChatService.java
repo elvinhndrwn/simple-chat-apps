@@ -64,25 +64,30 @@ public class ChatService {
     }
 
     public List<IncomingMessageResponse> showIncomingMessageList(int id) {
-        List<IncomingMessageResponse> response = new ArrayList<>();
-        var messages = messageHistoryRepository.showRoomChat(id);
-        messages.forEach(msg -> {
-            IncomingMessageResponse incomingMessageResponse = new IncomingMessageResponse();
-            log.info("message id: {}", msg.getId());
+        try {
+            List<IncomingMessageResponse> response = new ArrayList<>();
+            var messages = messageHistoryRepository.showRoomChat(id);
+            messages.forEach(msg -> {
+                IncomingMessageResponse incomingMessageResponse = new IncomingMessageResponse();
+                log.info("message id: {}", msg.getId());
 
-            // get full name
-            var sender = userRepository.findById(msg.getUserTwo());
-            var currentMsg = messageHistoryRepository.showCurrentMessageByRoomId(msg.getRoomId());
-            incomingMessageResponse.setRoomId(msg.getRoomId());
-            incomingMessageResponse.setSenderName(sender.getUserFullName());
-            incomingMessageResponse.setMessage(currentMsg.getMessage());
-            incomingMessageResponse.setPhoneNumber(sender.getPhoneNumber());
-            incomingMessageResponse.setTime(currentMsg.getTime());
+                // get full name
+                var sender = userRepository.findById(msg.getUserTwo());
+                var currentMsg = messageHistoryRepository.showCurrentMessageByRoomId(msg.getRoomId());
+                incomingMessageResponse.setRoomId(msg.getRoomId());
+                incomingMessageResponse.setSenderName(sender.getUserFullName());
+                incomingMessageResponse.setMessage(currentMsg.getMessage());
+                incomingMessageResponse.setPhoneNumber(sender.getPhoneNumber());
+                incomingMessageResponse.setTime(currentMsg.getTime());
 
-            response.add(incomingMessageResponse);
-        });
+                response.add(incomingMessageResponse);
+            });
 
-        response.sort(Comparator.comparing(IncomingMessageResponse::getTime).reversed());
-        return response;
+            response.sort(Comparator.comparing(IncomingMessageResponse::getTime).reversed());
+            return response;
+        }catch (Exception e){
+            log.error("Error in show incoming/outgoing message: ", e);
+            throw e;
+        }
     }
 }

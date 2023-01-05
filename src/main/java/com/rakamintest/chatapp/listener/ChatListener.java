@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rakamintest.chatapp.constant.MessageStatus;
 import com.rakamintest.chatapp.dto.MessageRequest;
 import com.rakamintest.chatapp.dto.SendMessageRequest;
+import com.rakamintest.chatapp.exception.GenericException;
 import com.rakamintest.chatapp.model.MessageHistoryModel;
 import com.rakamintest.chatapp.model.ParticipantModel;
 import com.rakamintest.chatapp.model.RoomModel;
@@ -16,6 +17,7 @@ import com.rakamintest.chatapp.repository.RoomRepository;
 import com.rakamintest.chatapp.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,7 +75,7 @@ public class ChatListener {
                 }catch (Exception e){
                     log.error("error when create room chat: ", e);
                     participantRepository.deleteById(participant.getId());
-                    throw e;
+                    throw new GenericException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong");
                 }
 
                 try {
@@ -89,7 +91,7 @@ public class ChatListener {
                     log.error("error when store message history : ", e);
                     participantRepository.deleteById(participant.getId());
                     roomRepository.deleteById(room.getId());
-                    throw e;
+                    throw new GenericException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong");
                 }
 
             }else{
