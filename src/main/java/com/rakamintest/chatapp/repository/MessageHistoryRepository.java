@@ -26,4 +26,22 @@ public interface MessageHistoryRepository extends JpaRepository<MessageHistoryMo
             "WHERE message_history.room_id=:roomId\n" +
             "ORDER BY time DESC LIMIT 1", nativeQuery = true)
     GetMessageHistoryListResponse showCurrentMessageByRoomId(int roomId);
+
+    @Query(value = "SELECT \n" +
+            "message_history.sender_user_id AS SenderUserId,\n" +
+            "message_history.message AS Message, \n" +
+            "message_history.time AS Time\n" +
+            "FROM participant\n" +
+            "JOIN room ON room.participant_id=participant.id\n" +
+            "JOIN message_history ON message_history.room_id=room.id\n" +
+            "WHERE message_history.room_id = :roomId\n" +
+            "ORDER BY message_history.time DESC", nativeQuery = true)
+    List<GetMessageHistoryListResponse> viewMessage(int roomId);
+
+    @Query(value = "SELECT user.user_full_name AS Name " +
+            "FROM room JOIN participant ON participant.id=room.participant_id " +
+            "JOIN message_history ON message_history.room_id=room.id " +
+            "JOIN user ON user.id=message_history.sender_user_id " +
+            "WHERE user.id != :id AND message_history.room_id = :roomId LIMIT 1", nativeQuery = true)
+    GetMessageHistoryListResponse getContactName(int roomId, int id);
 }

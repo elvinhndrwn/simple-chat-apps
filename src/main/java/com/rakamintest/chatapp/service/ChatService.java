@@ -2,19 +2,15 @@ package com.rakamintest.chatapp.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rakamintest.chatapp.dto.GetMessageHistoryListResponse;
-import com.rakamintest.chatapp.dto.IncomingMessageResponse;
-import com.rakamintest.chatapp.dto.MessageRequest;
-import com.rakamintest.chatapp.dto.SendMessageRequest;
-import com.rakamintest.chatapp.model.MessageHistoryModel;
-import com.rakamintest.chatapp.model.ParticipantModel;
-import com.rakamintest.chatapp.model.RoomModel;
+import com.rakamintest.chatapp.dto.*;
+import com.rakamintest.chatapp.exception.GenericException;
 import com.rakamintest.chatapp.repository.MessageHistoryRepository;
 import com.rakamintest.chatapp.repository.ParticipantRepository;
 import com.rakamintest.chatapp.repository.RoomRepository;
 import com.rakamintest.chatapp.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
@@ -87,6 +83,37 @@ public class ChatService {
             return response;
         }catch (Exception e){
             log.error("Error in show incoming/outgoing message: ", e);
+            throw e;
+        }
+    }
+
+    public ViewMessageResponse viewMessage(int id, int roomId) {
+        List<ViewMessageDto> list = new ArrayList<>();
+        try {
+            // get data
+            var contact = messageHistoryRepository.getContactName(roomId, id);
+            var messages = messageHistoryRepository.viewMessage(roomId);
+            if(Objects.isNull(contact) || Objects.isNull(messages)){
+                throw new GenericException(HttpStatus.BAD_REQUEST, "Something when wrong");
+            }
+
+            messages.forEach(message -> {
+                ViewMessageDto dto = new ViewMessageDto();
+                dto.setSenderUserId(message.getSenderUserId());
+                dto.setMessage(message.getMessage());
+                dto.setTime(message.getTime());
+                list.add(dto);
+            });
+
+            return ViewMessageResponse.builder()
+                    .contactName(contact.getName())
+                    .messages(list)
+                    .build();
+        }catch (GenericException exception){
+            throw new GenericException(exception.getHttpStatus(), exception.getMessage());
+        }
+        catch (Exception e){
+            log.error("Error when view message: ", e);
             throw e;
         }
     }

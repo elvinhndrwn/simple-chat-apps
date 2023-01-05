@@ -12,6 +12,7 @@ public interface GetMessageHistoryListResponse {
     int getUserOne();
     int getUserTwo();
     String getPhoneNumber();
+    String getName();
 
 
 }
