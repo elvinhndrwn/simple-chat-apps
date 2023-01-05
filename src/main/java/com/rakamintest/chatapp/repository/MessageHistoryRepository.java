@@ -22,7 +22,7 @@ public interface MessageHistoryRepository extends JpaRepository<MessageHistoryMo
             "GROUP BY message_history.room_id", nativeQuery = true)
     List<GetMessageHistoryListResponse> showRoomChat(int id);
 
-    @Query(value = "SELECT message_history.message AS Message FROM message_history\n" +
+    @Query(value = "SELECT message_history.message AS Message, message_history.time AS Time FROM message_history\n" +
             "WHERE message_history.room_id=:roomId\n" +
             "ORDER BY time DESC LIMIT 1", nativeQuery = true)
     GetMessageHistoryListResponse showCurrentMessageByRoomId(int roomId);

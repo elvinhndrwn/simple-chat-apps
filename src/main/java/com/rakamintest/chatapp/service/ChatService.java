@@ -2,6 +2,7 @@ package com.rakamintest.chatapp.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rakamintest.chatapp.dto.GetMessageHistoryListResponse;
 import com.rakamintest.chatapp.dto.IncomingMessageResponse;
 import com.rakamintest.chatapp.dto.MessageRequest;
 import com.rakamintest.chatapp.dto.SendMessageRequest;
@@ -76,10 +77,12 @@ public class ChatService {
             incomingMessageResponse.setSenderName(sender.getUserFullName());
             incomingMessageResponse.setMessage(currentMsg.getMessage());
             incomingMessageResponse.setPhoneNumber(sender.getPhoneNumber());
+            incomingMessageResponse.setTime(currentMsg.getTime());
 
             response.add(incomingMessageResponse);
         });
 
+        response.sort(Comparator.comparing(IncomingMessageResponse::getTime).reversed());
         return response;
     }
 }

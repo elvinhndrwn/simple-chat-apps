@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,4 +16,5 @@ public class IncomingMessageResponse {
     private String message;
     private int roomId;
     private String phoneNumber;
+    private Timestamp time;
 }
