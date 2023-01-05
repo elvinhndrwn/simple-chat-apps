@@ -13,6 +13,6 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class ViewMessageDto {
     private Integer senderUserId;
-    private Timestamp time;
+    private String time;
     private String message;
 }

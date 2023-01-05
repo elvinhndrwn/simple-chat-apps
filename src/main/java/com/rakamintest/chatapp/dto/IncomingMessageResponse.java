@@ -16,5 +16,5 @@ public class IncomingMessageResponse {
     private String message;
     private int roomId;
     private String phoneNumber;
-    private Timestamp time;
+    private String time;
 }

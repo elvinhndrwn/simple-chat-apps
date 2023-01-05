@@ -8,6 +8,7 @@ import com.rakamintest.chatapp.repository.MessageHistoryRepository;
 import com.rakamintest.chatapp.repository.ParticipantRepository;
 import com.rakamintest.chatapp.repository.RoomRepository;
 import com.rakamintest.chatapp.repository.UserRepository;
+import com.rakamintest.chatapp.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -74,7 +75,7 @@ public class ChatService {
                 incomingMessageResponse.setSenderName(sender.getUserFullName());
                 incomingMessageResponse.setMessage(currentMsg.getMessage());
                 incomingMessageResponse.setPhoneNumber(sender.getPhoneNumber());
-                incomingMessageResponse.setTime(currentMsg.getTime());
+                incomingMessageResponse.setTime(DateUtils.format(currentMsg.getTime()));
 
                 response.add(incomingMessageResponse);
             });
@@ -101,7 +102,7 @@ public class ChatService {
                 ViewMessageDto dto = new ViewMessageDto();
                 dto.setSenderUserId(message.getSenderUserId());
                 dto.setMessage(message.getMessage());
-                dto.setTime(message.getTime());
+                dto.setTime(DateUtils.format(message.getTime()));
                 list.add(dto);
             });
 
