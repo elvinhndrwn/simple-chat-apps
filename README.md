@@ -17,13 +17,15 @@ source code ini merupakan rest api aplikasi chat sederhana dengan menggunakan ba
 ```
 mvn clean install
 ```
-maka akan tergenerate 1 database (chat-app) dan 4 table didalamnya: <br />
-![image](https://user-images.githubusercontent.com/61193419/210861588-b44b1c51-7046-4807-b1a7-bf8258854b94.png)
 
 3. Lalu running aplikasi menggunakan command:
 ```
 mvn spring-boot:run
 ```
+
+Aplikasi akan berjalan di port 8080 dan akan tergenerate 1 database (chat-app) dan 4 table didalamnya: <br />
+![image](https://user-images.githubusercontent.com/61193419/210861588-b44b1c51-7046-4807-b1a7-bf8258854b94.png)
+
 
 # documentation API
 1. Untuk mengirim pesan, memerlukan registrasi terlebih dahulu dengan menggunakan request:
