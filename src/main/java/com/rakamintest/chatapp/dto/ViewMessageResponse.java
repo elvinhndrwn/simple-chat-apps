@@ -13,5 +13,6 @@ import java.util.List;
 @Builder
 public class ViewMessageResponse {
     private String contactName;
+    private String phoneNumber;
     private List<ViewMessageDto> messages;
 }

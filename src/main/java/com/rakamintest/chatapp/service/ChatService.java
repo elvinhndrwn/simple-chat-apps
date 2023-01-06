@@ -108,6 +108,7 @@ public class ChatService {
 
             return ViewMessageResponse.builder()
                     .contactName(contact.getName())
+                    .phoneNumber(contact.getPhoneNumber())
                     .messages(list)
                     .build();
         }catch (GenericException exception){

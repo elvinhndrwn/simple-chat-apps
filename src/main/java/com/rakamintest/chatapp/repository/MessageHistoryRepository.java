@@ -38,7 +38,7 @@ public interface MessageHistoryRepository extends JpaRepository<MessageHistoryMo
             "ORDER BY message_history.time DESC", nativeQuery = true)
     List<GetMessageHistoryListResponse> viewMessage(int roomId);
 
-    @Query(value = "SELECT user.user_full_name AS Name " +
+    @Query(value = "SELECT user.user_full_name AS Name, user.phone_number AS PhoneNumber " +
             "FROM room JOIN participant ON participant.id=room.participant_id " +
             "JOIN message_history ON message_history.room_id=room.id " +
             "JOIN user ON user.id=message_history.sender_user_id " +
